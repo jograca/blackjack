@@ -44,4 +44,12 @@ public class BlackjackController {
 		
 		return redirectToHome();
 	}
+	
+	@PostMapping("/hit")
+	public ModelAndView takeACard() {
+		
+		deck.hit();
+		
+		return redirectToHome();
+	}
 }

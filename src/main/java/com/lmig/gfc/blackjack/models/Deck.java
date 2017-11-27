@@ -51,6 +51,11 @@ public class Deck {
 		dealerCards.push(dealerCard1);
 		dealerCards.push(dealerCard2);
 	}
+	
+	public void hit() {
+		Card playerCard = availableCards.pop();
+		playerCards.push(playerCard);
+	}
 
 	public Stack<Card> getAvailableCards() {
 		return availableCards;
