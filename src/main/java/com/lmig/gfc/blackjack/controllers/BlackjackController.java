@@ -10,37 +10,38 @@ import com.lmig.gfc.blackjack.models.Deck;
 @Controller
 public class BlackjackController {
 
-	//  Private Variables
+	// Private Variables
 	private Deck deck;
-	
+
 	// Constructor
 	public BlackjackController() {
 		this.deck = new Deck();
 	}
-	
+
 	// Method to return a redirect back to home
 	private ModelAndView redirectToHome() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/");
 		return mv;
 	}
-	
+
 	// GetMapping for the home page (game.html)
-	@GetMapping ("/")
+	@GetMapping("/")
 	public ModelAndView setupGame() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("game");
 		mv.addObject("deck", deck);
 		
-		deck.setupDeck();
-		deck.shuffle();
-
 		return mv;
 	}
-	
+
 	@PostMapping("/deal")
 	public ModelAndView dealCards() {
+		
+		deck.setupDeck();
+		deck.shuffle();
 		deck.initialDeal();
+		
 		return redirectToHome();
 	}
 }

@@ -7,11 +7,24 @@
 <link rel="stylesheet" href="/css/app.css">
 <body>
 	<h2>Play Blackjack</h2>
-
+	
+	{{#deck.deckIsEmpty}}
 	<form method="post" action="/deal">
 		<button id="button">DEAL</button>
 	</form>
+	{{/deck.deckIsEmpty}}
 
+	<br>
+	<br>
+
+	<div class="stack">
+		Dealer Cards:
+		<ul>
+			{{#deck.dealerCards}}
+			<li>{{ value }} Of {{ suit }}</li> {{/deck.dealerCards}}
+		</ul>
+	</div>
+	
 	<br>
 	<br>
 
