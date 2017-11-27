@@ -8,11 +8,11 @@
 <body>
 	<h2>Play Blackjack</h2>
 
-	{{#deck.deckIsEmpty}}
+	{{^blackjack.gameOn}}
 	<form method="post" action="/deal">
 		<button id="button">DEAL</button>
 	</form>
-	{{/deck.deckIsEmpty}}
+	{{/blackjack.gameOn}}
 
 	<br>
 	<br>
@@ -20,8 +20,8 @@
 	<div class="stack">
 		Dealer Cards:
 		<ul>
-			{{#deck.dealerCards}}
-			<li>{{ value }} Of {{ suit }}</li> {{/deck.dealerCards}}
+			{{#blackjack.dealerCards}}
+			<li>{{ value }} Of {{ suit }}</li> {{/blackjack.dealerCards}}
 		</ul>
 	</div>
 
@@ -31,26 +31,26 @@
 	<div class="stack">
 		Your Cards:
 		<ul>
-			{{#deck.playerCards}}
-			<li>{{ value }} Of {{ suit }}</li> {{/deck.playerCards}}
+			{{#blackjack.playerCards}}
+			<li>{{ value }} Of {{ suit }}</li> {{/blackjack.playerCards}}
 		</ul>
 	</div>
 	
 	<br>
 	<br>
 	
-	{{^deck.deckIsEmpty}}
+	{{^blackjack.deckIsEmpty}}
 	<form method="post" action="/hit">
 		<button id="button">HIT</button>
 	</form>
-	{{/deck.deckIsEmpty}}
+	{{/blackjack.deckIsEmpty}}
 
 	<br>
-	<br> {{^deck.deckIsEmpty}}
+	<br> {{^blackjack.deckIsEmpty}}
 	<form method="post" action="/stay">
 		<button id="button">STAY</button>
 	</form>
-	{{/deck.deckIsEmpty}}
+	{{/blackjack.deckIsEmpty}}
 
 
 </body>

@@ -9,7 +9,7 @@ public class Dealer {
 	public Dealer (Stack<Card> hand) {
 		this.hand = hand;
 	}
-
+	
 	public Stack<Card> getHand() {
 		return hand;
 	}
