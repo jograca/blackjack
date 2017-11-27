@@ -12,5 +12,16 @@
 		<button id="button">DEAL</button>
 	</form>
 
+	<br>
+	<br>
+
+	<div class="stack">
+		Your Cards:
+		<ul>
+			{{#deck.playerCards}}
+			<li>{{ value }} Of {{ suit }}</li> {{/deck.playerCards}}
+		</ul>
+	</div>
+
 </body>
 </html>

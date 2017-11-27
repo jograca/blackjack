@@ -5,21 +5,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lmig.gfc.blackjack.models.Deck;
+
 @Controller
 public class BlackjackController {
 
-	// TODO Private Variables
+	//  Private Variables
+	private Deck deck;
 	
+	// Constructor
 	public BlackjackController() {
-		// TODO Auto-generated constructor stub
+		this.deck = new Deck();
 	}
-
 	
 	// Method to return a redirect back to home
 	private ModelAndView redirectToHome() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/");
-
 		return mv;
 	}
 	
@@ -28,13 +30,17 @@ public class BlackjackController {
 	public ModelAndView setupGame() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("game");
+		mv.addObject("deck", deck);
+		
+		deck.setupDeck();
+		deck.shuffle();
+
 		return mv;
 	}
 	
 	@PostMapping("/deal")
 	public ModelAndView dealCards() {
-		//Deal deal = new Deal();
-		
+		deck.initialDeal();
 		return redirectToHome();
 	}
 }
