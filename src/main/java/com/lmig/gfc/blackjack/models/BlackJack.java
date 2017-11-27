@@ -21,7 +21,7 @@ public class BlackJack {
 	
 	public void setupDeck() {
 		for (int i = 1; i <= 10; i++) {
-
+			
 			Card spades = new Card("Spades", i);
 			Card diamonds = new Card("Diamonds", i);
 			Card hearts = new Card("Hearts", i);

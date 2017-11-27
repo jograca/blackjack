@@ -39,18 +39,18 @@
 	<br>
 	<br>
 	
-	{{^blackjack.deckIsEmpty}}
+	{{#blackjack.gameOn}}
 	<form method="post" action="/hit">
 		<button id="button">HIT</button>
 	</form>
-	{{/blackjack.deckIsEmpty}}
+	{{/blackjack.gameOn}}
 
 	<br>
-	<br> {{^blackjack.deckIsEmpty}}
+	<br> 	{{#blackjack.gameOn}}
 	<form method="post" action="/stay">
 		<button id="button">STAY</button>
 	</form>
-	{{/blackjack.deckIsEmpty}}
+	{{/blackjack.gameOn}}
 
 
 </body>
