@@ -6,11 +6,60 @@
 </head>
 <link rel="stylesheet" href="/css/app.css">
 <body>
-	<h2>Play Blackjack</h2>
+	<h2>Play Blackjack!</h2>
 
+	{{^blackjack.gameOn}}
 	<form method="post" action="/deal">
 		<button id="button">DEAL</button>
 	</form>
+	{{/blackjack.gameOn}}
+
+	<br>
+	<br>
+
+	<div class="stack">
+		Dealer Cards:
+		<ul>
+			{{#blackjack.dealerCards}}
+			<li>{{ value }} of {{ suit }}</li> {{/blackjack.dealerCards}}
+		</ul>
+		<ul>
+			Dealer Total: {{ blackjack.dealerTotal }}
+		</ul>
+	</div>
+	
+	{{#blackjack.gameOn}}
+	
+	<table>
+		<tr>
+			<td>	
+				<form method="post" action="/hit">
+					<button id="button">HIT</button>
+				</form>
+			</td>
+			<td>
+				<form method="post" action="/stay">
+					<button id="button">STAY</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+	
+	{{/blackjack.gameOn}}
+
+	<br>
+
+	<div class="stack">
+		Your Cards:
+		<ul>
+			{{#blackjack.playerCards}}
+			<li>{{ value }} of {{ suit }}</li> {{/blackjack.playerCards}}
+		</ul>
+		<ul>
+			Your Total: {{ blackjack.playerTotal }}
+		</ul>
+	</div>
+
 
 </body>
 </html>
