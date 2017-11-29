@@ -1,39 +1,25 @@
 package com.lmig.gfc.blackjack.models;
 
-import java.util.Stack;
-
 public class Player {
 
-	private Stack<Card> hand;
+	private Hand hand;
 	private double wallet;
-	
-	public Player (Stack<Card> hand, double wallet) {
+
+	public Player(Hand hand, double wallet) {
 		this.hand = hand;
-		this.wallet = wallet; 
-	}
-	
-	public void bet() {
-		
-	}
-	
-	public void hit() {
-		
-	}
-	
-	public void stay() {
-		
-	}
-	
-	public boolean playerIsBroke() {
-		return wallet <= 0;
+		this.wallet = wallet;
 	}
 
-	public Stack<Card> getHand() {
-		return hand;
+	public boolean playerIsBroke() {
+		return wallet <= 0;
 	}
 
 	public double getWallet() {
 		return wallet;
 	}
-	
+
+	public Hand getHand() {
+		return hand;
+	}
+
 }

@@ -10,7 +10,7 @@ public class BlackJack {
 	private Stack<Card> dealerCards;
 
 	private int playerTotal;
-	
+
 	// Don't get rid of this! Used by mustache in your view
 	private int dealerTotal;
 
@@ -23,7 +23,7 @@ public class BlackJack {
 	public boolean gameOn() {
 		return (!availableCards.isEmpty());
 	}
-	
+
 	public void startGame() {
 		this.setupDeck();
 		this.shuffle();
@@ -33,10 +33,10 @@ public class BlackJack {
 	public void setupDeck() {
 		for (int i = 1; i <= 10; i++) {
 
-			Card spades = new Card("Spades", i);
-			Card diamonds = new Card("Diamonds", i);
-			Card hearts = new Card("Hearts", i);
-			Card clubs = new Card("Clubs", i);
+			Card spades = new Card("Spades", i, "N/A");
+			Card diamonds = new Card("Diamonds", i, "N/A");
+			Card hearts = new Card("Hearts", i, "N/A");
+			Card clubs = new Card("Clubs", i, "N/A");
 
 			availableCards.push(spades);
 			availableCards.push(diamonds);
@@ -77,8 +77,8 @@ public class BlackJack {
 			playerCards.push(playerCard);
 		}
 	}
-	
+
 	public void stay() {
-		
+
 	}
 }
