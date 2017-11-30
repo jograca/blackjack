@@ -52,6 +52,11 @@ public class BlackjackController {
 
 		Deck deck = new Deck();
 		deck.initializeDeck();
+		deck.shuffle();
+
+		mv.addObject("deck", deck);
+
+		System.out.println("Deck Has: " + deck);
 
 		Hand hand = new Hand();
 		hand.accept(new AceCard(Suits.DIAMONDS));
