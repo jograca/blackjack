@@ -1,48 +1,53 @@
 package com.lmig.gfc.blackjack.models;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Hand {
 
-	private Deck deck;
-	private LinkedList<Card> cards;
+	private LinkedList<Card> hand;
+
+	private int handTotal;
+	private boolean isBlackjack;
+	private boolean isBust;
+	private boolean canHit;
 
 	public Hand() {
-		cards = new LinkedList<Card>();
-	}
-
-	public void getFromDeck() {
-		deck.initializeDeck();
-
-	}
-
-	public void accept(Card card) {
-		cards.add(card);
-	}
-
-	public List<Card> getCards() {
-		return cards;
-	}
-
-	public int getTotal() {
-		int sum = 0;
-		for (Card card : cards) {
-			sum += card.getValue();
-		}
-		return sum;
-	}
-
-	public boolean isBlackjack() {
-		return true;
-	}
-
-	public boolean isBust() {
-		return true;
+		hand = new LinkedList<Card>();
 	}
 
 	public boolean canHit() {
-		return true;
+		return (handTotal < 21);
+	}
+
+	public void addCardToHand(Card card) {
+
+		this.hand.add(card);
+		this.handTotal += card.getValue();
+
+		while (!canHit) {
+			handTotal -= 10;
+		}
+
+		if (canHit) {
+			isBust = true;
+		}
+
+	}
+
+	public LinkedList<Card> getHand() {
+		return hand;
+	}
+
+	public int getHandTotal() {
+		return handTotal;
+	}
+
+	public boolean isBlackjack() {
+		return isBlackjack;
+	}
+
+	public boolean isBust() {
+		return isBust;
 	}
 
 }

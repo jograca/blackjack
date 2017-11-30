@@ -5,11 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lmig.gfc.blackjack.models.AceCard;
 import com.lmig.gfc.blackjack.models.Deck;
 import com.lmig.gfc.blackjack.models.Hand;
-import com.lmig.gfc.blackjack.models.NumberCard;
-import com.lmig.gfc.blackjack.models.Suits;
 
 @Controller
 public class BlackjackController {
@@ -59,9 +56,8 @@ public class BlackjackController {
 		System.out.println("Deck Has: " + deck);
 
 		Hand hand = new Hand();
-		hand.accept(new AceCard(Suits.DIAMONDS));
-		hand.accept(new NumberCard(Suits.CLUBS, 4));
-		hand.accept(new NumberCard(Suits.HEARTS, 8));
+
+		hand.getHand();
 
 		mv.addObject("hand", hand);
 
