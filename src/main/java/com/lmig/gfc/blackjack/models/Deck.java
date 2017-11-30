@@ -5,10 +5,11 @@ import java.util.Stack;
 
 public class Deck {
 
-	private Stack<Card> deck;
+	private Stack<Card> cards;
 
 	public Deck() {
-		deck = new Stack<Card>();
+		cards = new Stack<Card>();
+		this.initializeDeck();
 	}
 
 	public void initializeDeck() {
@@ -20,10 +21,10 @@ public class Deck {
 			Card diamonds = new NumberCard(Suits.DIAMONDS, i);
 			Card hearts = new NumberCard(Suits.HEARTS, i);
 
-			deck.push(clubs);
-			deck.push(spades);
-			deck.push(diamonds);
-			deck.push(hearts);
+			cards.push(clubs);
+			cards.push(spades);
+			cards.push(diamonds);
+			cards.push(hearts);
 		}
 
 		Card jackClubs = new FaceCard(Suits.CLUBS, Faces.JACK);
@@ -31,45 +32,45 @@ public class Deck {
 		Card jackDiamonds = new FaceCard(Suits.DIAMONDS, Faces.JACK);
 		Card jackHearts = new FaceCard(Suits.HEARTS, Faces.JACK);
 
-		deck.push(jackClubs);
-		deck.push(jackSpades);
-		deck.push(jackDiamonds);
-		deck.push(jackHearts);
+		cards.push(jackClubs);
+		cards.push(jackSpades);
+		cards.push(jackDiamonds);
+		cards.push(jackHearts);
 
 		Card kingClubs = new FaceCard(Suits.CLUBS, Faces.KING);
 		Card kingSpades = new FaceCard(Suits.SPADES, Faces.KING);
 		Card kingDiamonds = new FaceCard(Suits.DIAMONDS, Faces.KING);
 		Card kingHearts = new FaceCard(Suits.HEARTS, Faces.KING);
 
-		deck.push(kingClubs);
-		deck.push(kingSpades);
-		deck.push(kingDiamonds);
-		deck.push(kingHearts);
+		cards.push(kingClubs);
+		cards.push(kingSpades);
+		cards.push(kingDiamonds);
+		cards.push(kingHearts);
 
 		Card queenClubs = new FaceCard(Suits.CLUBS, Faces.QUEEN);
 		Card queenSpades = new FaceCard(Suits.SPADES, Faces.QUEEN);
 		Card queenDiamonds = new FaceCard(Suits.DIAMONDS, Faces.QUEEN);
 		Card queenHearts = new FaceCard(Suits.HEARTS, Faces.QUEEN);
 
-		deck.push(queenClubs);
-		deck.push(queenSpades);
-		deck.push(queenDiamonds);
-		deck.push(queenHearts);
+		cards.push(queenClubs);
+		cards.push(queenSpades);
+		cards.push(queenDiamonds);
+		cards.push(queenHearts);
 
 		Card aceClubs = new AceCard(Suits.CLUBS);
 		Card aceSpades = new AceCard(Suits.SPADES);
 		Card aceDiamonds = new AceCard(Suits.DIAMONDS);
 		Card aceHearts = new AceCard(Suits.HEARTS);
 
-		deck.push(aceClubs);
-		deck.push(aceSpades);
-		deck.push(aceDiamonds);
-		deck.push(aceHearts);
+		cards.push(aceClubs);
+		cards.push(aceSpades);
+		cards.push(aceDiamonds);
+		cards.push(aceHearts);
 
 	}
 
 	public void shuffle() {
-		Collections.shuffle(deck);
+		Collections.shuffle(cards);
 	}
 
 }

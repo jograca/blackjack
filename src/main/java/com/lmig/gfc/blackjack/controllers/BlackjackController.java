@@ -1,10 +1,13 @@
 package com.lmig.gfc.blackjack.controllers;
 
+import java.util.Stack;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lmig.gfc.blackjack.models.Card;
 import com.lmig.gfc.blackjack.models.Deck;
 import com.lmig.gfc.blackjack.models.Hand;
 
@@ -16,6 +19,8 @@ public class BlackjackController {
 	// public public TwentyOneController() {
 	// game = new Game();
 	// }
+
+	private Stack<Card> cards;
 
 	private ModelAndView redirectToHome() {
 
@@ -48,18 +53,14 @@ public class BlackjackController {
 		// mv.addObject("playerHand", game.getPlayerHand());
 
 		Deck deck = new Deck();
-		deck.initializeDeck();
 		deck.shuffle();
 
-		mv.addObject("deck", deck);
-
-		System.out.println("Deck Has: " + deck);
-
 		Hand hand = new Hand();
-
 		hand.getHand();
 
+		mv.addObject("deck", deck);
 		mv.addObject("hand", hand);
+		mv.addObject("card");
 
 		return mv;
 	}

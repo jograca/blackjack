@@ -3,19 +3,28 @@
 <link rel="stylesheet" href="/css/app.css">
 <head>
 <meta charset="ISO-8859-1">
-<title>Play Your Hand</title>
+<title>Blackjack</title>
 </head>
 <body>
 
 	<h1>Play Blackjack!</h1>
 	
-	{{ deck }}
-	
 	<h2>Player hand</h2>
-	{{#hand.cards}}
+	
+	{{#hand}}
+		{{ handTotal }}
+		<br>
+		{{ canHit }}
+		<br>
+		{{ isBust }}
+	{{/hand}}
+	
+	<br>
+	
+	<h2>The Deck</h2>
+	{{#deck.cards}}
 		<div>{{ face }} of {{ suit }}</div>
-	{{/hand.cards}}
-	{{ hand.total }}
+	{{/deck.cards}}
 	
 	<form method="post" action="/hit">
 		<button>Hit me</button>
