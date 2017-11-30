@@ -6,8 +6,6 @@ import java.util.Stack;
 public class Deck {
 
 	private Stack<Card> cards;
-	private Hand dealerHand;
-	private Hand playerHand;
 
 	public Deck() {
 		cards = new Stack<Card>();
@@ -73,21 +71,6 @@ public class Deck {
 
 	public void shuffle() {
 		Collections.shuffle(cards);
-	}
-
-	public void initialDeal() {
-
-		Card playerCard1 = cards.pop();
-		Card playerCard2 = cards.pop();
-
-		Card dealerCard1 = cards.pop();
-		Card dealerCard2 = cards.pop();
-
-		playerHand.addCardToHand(playerCard1);
-		playerHand.addCardToHand(playerCard2);
-
-		dealerHand.addCardToHand(dealerCard1);
-		dealerHand.addCardToHand(dealerCard2);
 	}
 
 }

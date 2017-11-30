@@ -2,15 +2,22 @@ package com.lmig.gfc.blackjack.models;
 
 public class Player {
 
-	private Wallet wallet;
 	private Hand hand;
 
 	public Player() {
-		this.wallet = wallet;
-		this.hand = hand;
+		hand = new Hand();
 	}
 
-	public void getHand() {
-
+	public void addToHand(Card card) {
+		hand.addCardToHand(card);
 	}
+
+	public Hand getHand() {
+		return hand;
+	}
+
+	public void newHand() {
+		hand = new Hand();
+	}
+
 }
