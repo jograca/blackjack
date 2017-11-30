@@ -54,6 +54,7 @@ public class BlackjackController {
 
 		Deck deck = new Deck();
 		deck.shuffle();
+		// deck.initialDeal();
 
 		Hand hand = new Hand();
 		hand.getHand();

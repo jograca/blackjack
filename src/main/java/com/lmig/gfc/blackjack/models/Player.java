@@ -3,11 +3,11 @@ package com.lmig.gfc.blackjack.models;
 public class Player {
 
 	private Wallet wallet;
-	private Deck deck;
+	private Hand hand;
 
 	public Player() {
 		this.wallet = wallet;
-		this.deck = deck;
+		this.hand = hand;
 	}
 
 	public void getHand() {

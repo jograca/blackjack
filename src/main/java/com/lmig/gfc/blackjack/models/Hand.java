@@ -1,10 +1,10 @@
 package com.lmig.gfc.blackjack.models;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class Hand {
 
-	private LinkedList<Card> hand;
+	private Stack<Card> hand;
 
 	private int handTotal;
 	private boolean isBlackjack;
@@ -12,7 +12,7 @@ public class Hand {
 	private boolean canHit;
 
 	public Hand() {
-		hand = new LinkedList<Card>();
+		hand = new Stack<Card>();
 	}
 
 	public boolean canHit() {
@@ -34,7 +34,7 @@ public class Hand {
 
 	}
 
-	public LinkedList<Card> getHand() {
+	public Stack<Card> getHand() {
 		return hand;
 	}
 
