@@ -9,11 +9,9 @@ public class Deck {
 
 	public Deck() {
 		deck = new Stack<Card>();
-		this.initializeDeck();
-		this.shuffle();
 	}
 
-	private void initializeDeck() {
+	public void initializeDeck() {
 
 		for (int i = 2; i <= 10; i += 1) {
 
@@ -58,9 +56,19 @@ public class Deck {
 		deck.push(queenDiamonds);
 		deck.push(queenHearts);
 
+		Card aceClubs = new AceCard(Suits.CLUBS);
+		Card aceSpades = new AceCard(Suits.SPADES);
+		Card aceDiamonds = new AceCard(Suits.DIAMONDS);
+		Card aceHearts = new AceCard(Suits.HEARTS);
+
+		deck.push(aceClubs);
+		deck.push(aceSpades);
+		deck.push(aceDiamonds);
+		deck.push(aceHearts);
+
 	}
 
-	private void shuffle() {
+	public void shuffle() {
 		Collections.shuffle(deck);
 	}
 
