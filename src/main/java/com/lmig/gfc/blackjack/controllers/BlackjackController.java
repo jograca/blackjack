@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lmig.gfc.blackjack.models.AceCard;
+import com.lmig.gfc.blackjack.models.Deck;
 import com.lmig.gfc.blackjack.models.Hand;
 import com.lmig.gfc.blackjack.models.NumberCard;
 import com.lmig.gfc.blackjack.models.Suits;
@@ -18,6 +19,13 @@ public class BlackjackController {
 	// public public TwentyOneController() {
 	// game = new Game();
 	// }
+
+	private ModelAndView redirectToHome() {
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/");
+		return mv;
+	}
 
 	@GetMapping("/")
 	public ModelAndView showBetScreen() {
@@ -41,6 +49,9 @@ public class BlackjackController {
 		mv.setViewName("play");
 
 		// mv.addObject("playerHand", game.getPlayerHand());
+
+		Deck deck = new Deck();
+		deck.initializeDeck();
 
 		Hand hand = new Hand();
 		hand.accept(new AceCard(Suits.DIAMONDS));
