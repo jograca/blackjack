@@ -45,7 +45,6 @@ public class BlackjackController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("play");
 
-		// deck.shuffle();
 		hand.getHand();
 
 		// mv.addObject("playerHand", game.getPlayerHand());
