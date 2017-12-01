@@ -6,9 +6,12 @@ public class Game {
 	private Player player;
 	private House house;
 
-	private boolean playerWins;
-	private boolean houseWins;
-	private boolean gamePush;
+	private boolean playerWins = false;
+	private boolean houseWins = false;
+	private boolean gamePush = false;
+	private boolean playerBlackjack = false;
+	private boolean houseBlackjack = false;
+	private boolean gameOver = false;
 
 	// Constructor
 	public Game() {
@@ -26,6 +29,9 @@ public class Game {
 	// called at the beginning of the game
 	public void deal() {
 
+		player.makeNewHand();
+		house.makeNewHand();
+
 		player.addToHand(deck.pullCardFromDeck());
 		player.addToHand(deck.pullCardFromDeck());
 		house.addToHand(deck.pullCardFromDeck());
@@ -33,56 +39,49 @@ public class Game {
 
 	}
 
-	// public void findWinner() {
-	// boolean playerBusted = getPlayerHand().isBust();
-	// boolean dealerBusted = getHouseHand().isBust();
-	// boolean playerBlackjack = getPlayerHand().isBlackjack();
-	// boolean dealerBlackjack = getHouseHand().isBlackjack();
-	//
-	// if (playerBusted) {
-	// // player lost
-	// houseWins = true;
-	// // game ends
-	// gameOver();
-	// } else if (dealerBusted) {
-	// // dealer busted
-	// // player wins
-	// playerWins = true;
-	// // money added to wallet
-	// addWinningsToWallet();
-	// // game ends
-	// gameOver();
-	// } else if (playerBlackjack) {
-	// // player wins
-	// playerWins = true;
-	// // money added to wallet
-	// addWinningsToWallet();
-	// // game ends
-	// gameOver();
-	// } else if (dealerBlackjack) {
-	// // dealer wins
-	// houseWins = true;
-	// // game ends
-	// gameOver();
-	// } else if (playerBlackjack && dealerBlackjack) {
-	// // push (neither wins)
-	// gamePush = true;
-	// // money on bet returned
-	// addWinningsToWallet();
-	// // game ends
-	// gameOver();
+	public void findWinner() {
+
+		if (house.getHand().getHandTotal() > 21) {
+
+			playerWins = true;
+			gameOver = true;
+		}
+		// Player Busted
+		if (player.getHand().getHandTotal() > 21) {
+
+			houseWins = true;
+			gameOver = true;
+		}
+		if (player.getHand().getHandTotal() == 21 && player.getHand().getHandSize() == 2) {
+
+			playerWins = true;
+			playerBlackjack = true;
+			gameOver = true;
+		}
+		if (house.getHand().getHandTotal() == 21 && house.getHand().getHandSize() == 2) {
+
+			houseWins = true;
+			houseBlackjack = true;
+			gameOver = true;
+		}
+		if ((house.getHand().getHandTotal() == 21) && (player.getHand().getHandTotal() == 21)
+				&& (house.getHand().getHandSize() == 2) && (player.getHand().getHandSize() == 2)) {
+			gamePush = true;
+			playerBlackjack = true;
+			houseBlackjack = true;
+			gameOver = true;
+		}
+	}
+
+	// private void addWinningsToWallet() {
+	// if (push) {
+	// setWalletAmount(bet);
+	// } else if (getPlayerHand().isBlackjack()) {
+	// setWalletAmount((bet * 1.5) + bet);
+	// } else {
+	// setWalletAmount(bet * 2);
 	// }
 	// }
-	//
-	//// private void addWinningsToWallet() {
-	//// if (push) {
-	//// setWalletAmount(bet);
-	//// } else if (getPlayerHand().isBlackjack()) {
-	//// setWalletAmount((bet * 1.5) + bet);
-	//// } else {
-	//// setWalletAmount(bet * 2);
-	//// }
-	//// }
 
 	public void hit() {
 
@@ -112,6 +111,30 @@ public class Game {
 
 	public int getHouseTotal() {
 		return house.getHand().getHandTotal();
+	}
+
+	public boolean isPlayerWins() {
+		return playerWins;
+	}
+
+	public boolean isHouseWins() {
+		return houseWins;
+	}
+
+	public boolean isGamePush() {
+		return gamePush;
+	}
+
+	public boolean isPlayerBlackjack() {
+		return playerBlackjack;
+	}
+
+	public boolean isHouseBlackjack() {
+		return houseBlackjack;
+	}
+
+	public boolean isGameOver() {
+		return gameOver;
 	}
 
 }

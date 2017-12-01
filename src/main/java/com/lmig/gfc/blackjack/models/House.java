@@ -20,4 +20,16 @@ public class House {
 		hand = new Hand();
 	}
 
+	public boolean isBusted() {
+		return hand.isBust();
+	}
+
+	public boolean hasBlackjack() {
+		return hand.isBlackjack();
+	}
+
+	public void makeNewHand() {
+		hand = new Hand();
+	}
+
 }

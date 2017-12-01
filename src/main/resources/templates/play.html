@@ -8,56 +8,74 @@
 <body>
 
 	<h1>Play Blackjack!</h1>
-	
+
 	<h2>Dealer Hand</h2>
-	
+
 	{{#game.getHouseHand.hand}}
-		<ul>
-			<li>{{ face }} of {{ suit }}</li>
-		</ul>
-		<div>
-			
-		</div>
+	<ul>
+		<li>{{ face }} of {{ suit }}</li>
+	</ul>
+	<div></div>
 	{{/game.getHouseHand.hand}}
-	
-	<div>
-		Dealer Total is: {{ game.getHouseTotal }}
-	</div>
-	
+
+	<div>Dealer Total is: {{ game.getHouseTotal }}</div>
+
 	<br>
-	
+
 	<h2>Player Hand</h2>
-	
-	<div> 
-		You bet: 
-	</div>
-	
+
+	<div>You bet:</div>
+
 	{{#game.getPlayerHand.hand}}
-		<ul>
-			<li>{{ face }} of {{ suit }}</li>
-		</ul>
+	<ul>
+		<li>{{ face }} of {{ suit }}</li>
+	</ul>
 	{{/game.getPlayerHand.hand}}
-	
-	<div>
-		Player Total is: {{ game.getPlayerTotal }}
-	</div>
-	
+
+	<div>Player Total is: {{ game.getPlayerTotal }}</div>
+
 	<br>
 	
-	<table>
-		<tr>
-			<td>	
-				<form method="post" action="/hit">
-					<button id="button">HIT</button>
-				</form>
-			</td>
-			<td>
-				<form method="post" action="/stay">
-					<button id="button">STAY</button>
-				</form>
-			</td>
-		</tr>
-	</table>
+	{{^game.isGameOver}} 
+		<table>
+			<tr>
+				<td>
+					<form method="post" action="/hit">
+						<button id="button">HIT</button>
+					</form>
+				</td>
+				<td>
+					<form method="post" action="/stay">
+						<button id="button">STAY</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	{{/game.isGameOver}} 
+
+	<br>
+	<br>
+
+	{{#game.isGameOver}} 
+		<div id = "message">Game Over</div>
+	{{/game.isGameOver}}
+	
+	{{#game.playerWins}}
+		<div id="message">Dealer Busted! Player Won</div>
+	{{/game.playerWins}}
+	
+	{{#game.houseWins}}
+		<div id="message">Player Busted! House Won</div>
+	{{/game.houseWins}}
+
+	<br>
+	<br>
+	
+	{{#game.isGameOver}} 
+	<form method="post" action="/bet">
+		<button id="button">PLAY AGAIN</button>
+	</form>
+	{{/game.isGameOver}}
 
 </body>
 </html>

@@ -18,3 +18,7 @@ body {
 li {
 	list-style: none;
 }
+
+#message {
+	color:red; 
+}

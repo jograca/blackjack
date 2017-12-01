@@ -78,4 +78,8 @@ public class Deck {
 		return cards.pop();
 	}
 
+	public boolean hasCards() {
+		return (!cards.isEmpty());
+	}
+
 }

@@ -7,6 +7,7 @@ public class Hand {
 	private Stack<Card> hand;
 
 	private int handTotal;
+	private int handSize;
 	private boolean isBlackjack;
 	private boolean isBust;
 	private boolean canHit;
@@ -48,6 +49,10 @@ public class Hand {
 
 	public boolean isBust() {
 		return isBust;
+	}
+
+	public int getHandSize() {
+		return hand.size();
 	}
 
 }
