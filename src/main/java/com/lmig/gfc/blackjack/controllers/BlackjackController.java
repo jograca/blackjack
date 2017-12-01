@@ -31,7 +31,7 @@ public class BlackjackController {
 	}
 
 	@PostMapping("/bet")
-	public ModelAndView handleBet(int bet) {
+	public ModelAndView handleBet(Double bet) {
 
 		game.makePlayerBet(bet);
 		game.deal();

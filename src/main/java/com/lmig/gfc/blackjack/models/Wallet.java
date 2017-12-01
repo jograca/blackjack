@@ -1,18 +1,30 @@
 package com.lmig.gfc.blackjack.models;
 
 public class Wallet {
-	private double amount;
+	private double money;
+	private double playerBet;
 
-	public Wallet(double amount) {
-		this.amount = amount;
+	public Wallet() {
+		this.money = 100.0;
 	}
 
-	public double getAmount() {
-		return amount;
+	public double getPlayerBet() {
+		return playerBet;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void reduceMoneyBy(double playerBet) {
+		money -= playerBet;
 	}
 
+	public void increaseMoneyBy(double playerBet) {
+		money += playerBet;
+	}
+
+	public void blackjackMoneyWin(double value) {
+		money = (money + (value * 1.5));
+	}
+
+	public double getMoney() {
+		return money;
+	}
 }

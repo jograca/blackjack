@@ -5,7 +5,8 @@ public class Game {
 	private Deck deck;
 	private Player player;
 	private House house;
-	private int money;
+	private Wallet wallet;
+	private Double money;
 
 	private boolean playerWins = false;
 	private boolean houseWins = false;
@@ -19,8 +20,7 @@ public class Game {
 		this.deck = new Deck();
 		this.player = new Player();
 		this.house = new House();
-
-		money = 100;
+		this.wallet = new Wallet();
 	}
 
 	// boolean to hold a place for the game ending
@@ -148,9 +148,9 @@ public class Game {
 		}
 	}
 
-	public void makePlayerBet(int bet) {
+	public void makePlayerBet(Double bet) {
 
-		money -= bet;
+		wallet.reduceMoneyBy(bet);
 
 	}
 
@@ -194,7 +194,7 @@ public class Game {
 		return gameOver;
 	}
 
-	public int getMoney() {
+	public Double getMoney() {
 		return money;
 	}
 
