@@ -61,18 +61,24 @@
 	{{/game.isGameOver}}
 	
 	{{#game.playerWins}}
-		<div id="message">Dealer Busted! Player Won</div>
+			<div id="message">Player Won!</div>
+		{{#game.playerBlackjack}}
+			<div id="message">Blackjack!</div>
+		{{/game.playerBlackjack}}
 	{{/game.playerWins}}
 	
 	{{#game.houseWins}}
-		<div id="message">Player Busted! House Won</div>
+			<div id="message">House Won!</div>
+		{{#game.houseBlackjack}}
+			<div id="message">Blackjack!</div>
+		{{/game.houseBlackjack}}
 	{{/game.houseWins}}
 
 	<br>
 	<br>
 	
 	{{#game.isGameOver}} 
-	<form method="post" action="/bet">
+	<form method="post" action="/newgame">
 		<button id="button">PLAY AGAIN</button>
 	</form>
 	{{/game.isGameOver}}

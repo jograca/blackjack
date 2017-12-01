@@ -5,6 +5,7 @@ public class Game {
 	private Deck deck;
 	private Player player;
 	private House house;
+	private int money;
 
 	private boolean playerWins = false;
 	private boolean houseWins = false;
@@ -18,6 +19,8 @@ public class Game {
 		this.deck = new Deck();
 		this.player = new Player();
 		this.house = new House();
+
+		money = 100;
 	}
 
 	// boolean to hold a place for the game ending
@@ -25,12 +28,14 @@ public class Game {
 		return gameOver();
 	}
 
-	// Deal out the initial 2 cards
-	// called at the beginning of the game
+	// Setup a new Hand
+	// Reset conditional flags
+	// Deal out 2 initial cards
 	public void deal() {
 
 		player.makeNewHand();
 		house.makeNewHand();
+		resetFlags();
 
 		player.addToHand(deck.pullCardFromDeck());
 		player.addToHand(deck.pullCardFromDeck());
@@ -43,16 +48,21 @@ public class Game {
 
 		if (house.getHand().getHandTotal() > 21) {
 
+			System.out.println("House Busted (went over 21)");
+
 			playerWins = true;
 			gameOver = true;
 		}
-		// Player Busted
 		if (player.getHand().getHandTotal() > 21) {
+
+			System.out.println("Player Busted (went over 21)");
 
 			houseWins = true;
 			gameOver = true;
 		}
 		if (player.getHand().getHandTotal() == 21 && player.getHand().getHandSize() == 2) {
+
+			System.out.println("Player Blackjack");
 
 			playerWins = true;
 			playerBlackjack = true;
@@ -60,17 +70,47 @@ public class Game {
 		}
 		if (house.getHand().getHandTotal() == 21 && house.getHand().getHandSize() == 2) {
 
+			System.out.println("House Blackjack");
+
 			houseWins = true;
 			houseBlackjack = true;
 			gameOver = true;
 		}
 		if ((house.getHand().getHandTotal() == 21) && (player.getHand().getHandTotal() == 21)
 				&& (house.getHand().getHandSize() == 2) && (player.getHand().getHandSize() == 2)) {
+
+			System.out.println("PUSH Blackjack");
+
 			gamePush = true;
 			playerBlackjack = true;
 			houseBlackjack = true;
 			gameOver = true;
+
 		}
+	}
+
+	public void isGameOverForHand() {
+
+		if (!playerWins) {
+
+			if ((house.getHand().getHandTotal()) > (player.getHand().getHandTotal())) {
+
+				System.out.println("IsGameOverForHand");
+
+				houseWins = true;
+				gameOver = true;
+			}
+		}
+	}
+
+	public void resetFlags() {
+
+		playerWins = false;
+		houseWins = false;
+		gamePush = false;
+		playerBlackjack = false;
+		houseBlackjack = false;
+		gameOver = false;
 	}
 
 	// private void addWinningsToWallet() {
@@ -95,6 +135,23 @@ public class Game {
 		while (house.getHand().getHandTotal() < 17) {
 			house.addToHand(deck.pullCardFromDeck());
 		}
+		dealerBust();
+		isGameOverForHand();
+	}
+
+	public void dealerBust() {
+		System.out.println("Dealer Bust");
+
+		if (house.getHand().getHandTotal() > 21) {
+			playerWins = true;
+			gameOver = true;
+		}
+	}
+
+	public void makePlayerBet(int bet) {
+
+		money -= bet;
+
 	}
 
 	public Hand getPlayerHand() {
@@ -135,6 +192,10 @@ public class Game {
 
 	public boolean isGameOver() {
 		return gameOver;
+	}
+
+	public int getMoney() {
+		return money;
 	}
 
 }

@@ -33,6 +33,7 @@ public class BlackjackController {
 	@PostMapping("/bet")
 	public ModelAndView handleBet(int bet) {
 
+		game.makePlayerBet(bet);
 		game.deal();
 
 		ModelAndView mv = new ModelAndView();
@@ -63,7 +64,6 @@ public class BlackjackController {
 	public ModelAndView takeACard() {
 
 		game.hit();
-		game.findWinner();
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
@@ -80,6 +80,15 @@ public class BlackjackController {
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
+
+		return mv;
+	}
+
+	@PostMapping("/newgame")
+	public ModelAndView startNewGame() {
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/");
 
 		return mv;
 	}

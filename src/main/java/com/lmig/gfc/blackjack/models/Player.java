@@ -16,10 +16,6 @@ public class Player {
 		return hand;
 	}
 
-	public void newHand() {
-		hand = new Hand();
-	}
-
 	public boolean isBusted() {
 		return hand.isBust();
 	}

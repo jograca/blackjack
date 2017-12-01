@@ -11,6 +11,7 @@ public class Hand {
 	private boolean isBlackjack;
 	private boolean isBust;
 	private boolean canHit;
+	private int aces;
 
 	public Hand() {
 		hand = new Stack<Card>();
@@ -22,16 +23,17 @@ public class Hand {
 
 	public void addCardToHand(Card card) {
 
-		this.hand.add(card);
-		this.handTotal += card.getValue();
+		hand.add(card);
+		handTotal += card.getValue();
 
-		// while (!canHit) {
-		// handTotal -= 10;
-		// }
-		//
-		// if (canHit) {
-		// isBust = true;
-		// }
+		if (card.getValue() == 11) {
+			aces += 1;
+		}
+
+		while (handTotal > 21 && aces > 0) {
+			handTotal -= 10;
+			aces -= 1;
+		}
 
 	}
 
