@@ -15,4 +15,15 @@ public class PayoutTests {
 
 		assertThat(total).isEqualTo(110.0);
 	}
+
+	@Test
+	public void blackjack_winning_game_returns_one_half_times_bet() {
+		Wallet wallet = new Wallet();
+		wallet.blackjackMoneyWin(10.0);
+
+		Double total = wallet.getMoney();
+
+		assertThat(total).isEqualTo(115.0);
+	}
+
 }

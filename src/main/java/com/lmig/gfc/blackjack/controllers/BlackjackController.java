@@ -47,7 +47,7 @@ public class BlackjackController {
 		mv.setViewName("play");
 
 		hand.getHand();
-		game.findWinner();
+		// game.findWinner();
 
 		// mv.addObject("playerHand", game.getPlayerHand());
 
