@@ -24,13 +24,13 @@ public class Hand {
 		this.hand.add(card);
 		this.handTotal += card.getValue();
 
-		while (!canHit) {
-			handTotal -= 10;
-		}
-
-		if (canHit) {
-			isBust = true;
-		}
+		// while (!canHit) {
+		// handTotal -= 10;
+		// }
+		//
+		// if (canHit) {
+		// isBust = true;
+		// }
 
 	}
 

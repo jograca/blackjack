@@ -1,36 +1,30 @@
 package com.lmig.gfc.blackjack.controllers;
 
-import java.util.Stack;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lmig.gfc.blackjack.models.Card;
 import com.lmig.gfc.blackjack.models.Deck;
+import com.lmig.gfc.blackjack.models.Game;
 import com.lmig.gfc.blackjack.models.Hand;
 
 @Controller
 public class BlackjackController {
 
-	// private Game game;
-	//
-	// public public TwentyOneController() {
-	// game = new Game();
-	// }
+	private Game game;
+	private Deck deck;
+	private Hand hand;
 
-	private Stack<Card> cards;
-
-	private ModelAndView redirectToHome() {
-
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/");
-		return mv;
+	public BlackjackController() {
+		this.game = new Game();
+		this.deck = new Deck();
+		this.hand = new Hand();
 	}
 
 	@GetMapping("/")
 	public ModelAndView showBetScreen() {
+
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bet");
 		return mv;
@@ -38,7 +32,8 @@ public class BlackjackController {
 
 	@PostMapping("/bet")
 	public ModelAndView handleBet(int bet) {
-		// game.makePlayerBet(bet);
+
+		game.deal();
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
@@ -50,19 +45,41 @@ public class BlackjackController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("play");
 
-		// mv.addObject("playerHand", game.getPlayerHand());
-
-		Deck deck = new Deck();
 		deck.shuffle();
-
-		Hand hand = new Hand();
 		hand.getHand();
+
+		// mv.addObject("playerHand", game.getPlayerHand());
 
 		mv.addObject("deck", deck);
 		mv.addObject("hand", hand);
-		mv.addObject("card");
+		mv.addObject("game", game);
 
 		return mv;
 	}
 
+	// Hit
+	// Tells blackjack it wants a card
+	@PostMapping("/hit")
+	public ModelAndView takeACard() {
+
+		game.hit();
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/play");
+
+		return mv;
+	}
+
+	// Hit
+	// Tells blackjack it wants a card
+	@PostMapping("/stay")
+	public ModelAndView playerStays() {
+
+		game.stay();
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/play");
+
+		return mv;
+	}
 }

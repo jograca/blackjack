@@ -2,56 +2,62 @@
 <html>
 <link rel="stylesheet" href="/css/app.css">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Blackjack</title>
 </head>
 <body>
 
 	<h1>Play Blackjack!</h1>
 	
-	<h2>Player Hand</h2>
-	
-	{{#hand}}
-		{{ handTotal }}
-		<br>
-		{{ canHit }}
-		<br>
-		{{ isBust }}
-	{{/hand}}
-	
-	<br>
-	
-	{{#player}}
-		{{ hand }}	
-	{{/player}}
-	
 	<h2>Dealer Hand</h2>
 	
-	{{#hand}}
-		{{ handTotal }}
-		<br>
-		{{ canHit }}
-		<br>
-		{{ isBust }}
-	{{/hand}}
+	{{#game.getHouseHand.hand}}
+		<ul>
+			<li>{{ value }} of {{ suit }}</li>
+		</ul>
+		<div>
+			
+		</div>
+	{{/game.getHouseHand.hand}}
+	
+	<div>
+		Dealer Total is: {{ game.getHouseTotal }}
+	</div>
 	
 	<br>
 	
-	<h2>The Deck</h2>
-	{{#deck.cards}}
-		<div>{{ face }} of {{ suit }}</div>
-	{{/deck.cards}}
+	<h2>Player Hand</h2>
 	
-	<form method="post" action="/hit">
-		<button>Hit me</button>
-	</form>
+	<div> 
+		You bet: 
+	</div>
+	
+	{{#game.getPlayerHand.hand}}
+		<ul>
+			<li>{{ value }} of {{ suit }}</li>
+		</ul>
+	{{/game.getPlayerHand.hand}}
+	
+	<div>
+		Player Total is: {{ game.getPlayerTotal }}
+	</div>
 	
 	<br>
-	<br>
 	
-	<form method="post" action="/stand">
-	<button>I'm good</button>
+	<table>
+		<tr>
+			<td>	
+				<form method="post" action="/hit">
+					<button id="button">HIT</button>
+				</form>
+			</td>
+			<td>
+				<form method="post" action="/stay">
+					<button id="button">STAY</button>
+				</form>
+			</td>
+		</tr>
+	</table>
 
-</form>
 </body>
 </html>
