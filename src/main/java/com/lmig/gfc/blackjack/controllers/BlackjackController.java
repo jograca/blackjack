@@ -47,7 +47,6 @@ public class BlackjackController {
 		mv.setViewName("play");
 
 		hand.getHand();
-		// game.findWinner();
 
 		// mv.addObject("playerHand", game.getPlayerHand());
 
@@ -77,6 +76,7 @@ public class BlackjackController {
 	public ModelAndView playerStays() {
 
 		game.stay();
+		game.payout();
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");

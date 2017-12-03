@@ -15,17 +15,36 @@ public class Game {
 	private boolean houseBlackjack = false;
 	private boolean gameOver = false;
 
+	// Constructor for the game - sets up a deck, player, house and wallet
 	public Game() {
-		this.deck = new Deck();
-		this.player = new Player();
-		this.house = new House();
-		this.wallet = new Wallet();
+		deck = new Deck();
+		player = new Player();
+		house = new House();
+		wallet = new Wallet();
 	}
 
+	// Method for Game Over flag
 	public boolean gameOver() {
 		return gameOver();
 	}
 
+	// Sets all needed game flags to false
+	public void resetFlags() {
+
+		playerWins = false;
+		houseWins = false;
+		gamePush = false;
+		playerBlackjack = false;
+		houseBlackjack = false;
+		gameOver = false;
+	}
+
+	// Method to deal
+	// 1) Sets new hands by running the makeNewHand method
+	// 2) Runs reset flags method, which set all flags to false
+	// 3) Adds 2 cards to the player and dealer hands
+	// 4) Runs the blackjack methods
+	// This determines if the game is an immediate win for player or dealer
 	public void deal() {
 
 		player.makeNewHand();
@@ -42,6 +61,8 @@ public class Game {
 
 	}
 
+	// Method which determines if the game is over
+	// sets appropriate flags
 	public void isGameOverForHand() {
 
 		if (!playerWins) {
@@ -56,6 +77,7 @@ public class Game {
 		}
 	}
 
+	// Method to determine if the Dealer Hand went over 21
 	public void dealerBust() {
 		System.out.println("Dealer Bust");
 
@@ -66,6 +88,7 @@ public class Game {
 		}
 	}
 
+	// Method to determine if the Player Hand went over 21
 	public void playerBust() {
 
 		if (player.getHand().getHandTotal() > 21) {
@@ -73,11 +96,12 @@ public class Game {
 
 			houseWins = true;
 			gameOver = true;
-
-			// addWinToWallet(money);
 		}
 	}
 
+	// Method to determine if the dealer hit Blackjack. Rules:
+	// 1) Has 2 cards
+	// 2) Hand total is exactly 21
 	public void dealerBlackjack() {
 		System.out.println("Dealer Blackjack");
 		if (house.getHand().getHandTotal() == 21 && house.getHand().getHandSize() == 2) {
@@ -88,6 +112,9 @@ public class Game {
 		}
 	}
 
+	// Method to determine if the player hit Blackjack. Rules:
+	// 1) Has 2 cards
+	// 2) Hand total is exactly 21
 	public void playerBlackjack() {
 		System.out.println("Player Blackjack");
 
@@ -95,22 +122,20 @@ public class Game {
 			playerWins = true;
 			playerBlackjack = true;
 			gameOver = true;
-
-			// addBlackjackToWallet(money);
 		}
 
 	}
 
-	public void resetFlags() {
+	// Method to Pay on a Win
+	public void payout() {
+		System.out.println("Money Is: " + money);
 
-		playerWins = false;
-		houseWins = false;
-		gamePush = false;
-		playerBlackjack = false;
-		houseBlackjack = false;
-		gameOver = false;
+		if (playerWins = true) {
+			addWinToWallet(money);
+		}
 	}
 
+	// Method to Hit - adds a card to the Player Hand
 	public void hit() {
 
 		if (player.getHand().getHandTotal() <= 21) {
@@ -119,6 +144,10 @@ public class Game {
 		playerBust();
 	}
 
+	// Method to Stay:
+	// 1) Adds cards to Deler hand until 17 or less is met
+	// 2) Determines if the Dealer lost (dealerBust method)
+	// 3) Determines the Winner
 	public void stay() {
 
 		while (house.getHand().getHandTotal() < 17) {
@@ -129,21 +158,16 @@ public class Game {
 	}
 
 	public void makePlayerBet(Double bet) {
-
 		wallet.reduceMoneyBy(bet);
 
 	}
 
-	public void addWinToWallet(Double money) {
-		if (playerWins = true) {
-			wallet.increaseMoneyBy(money);
-		}
+	public void addWinToWallet(Double bet) {
+		wallet.increaseMoneyBy(bet);
 	}
 
 	public void addBlackjackToWallet(Double money) {
-		if (playerWins = true) {
-			wallet.blackjackMoneyWin(money);
-		}
+		wallet.blackjackMoneyWin(money);
 	}
 
 	public Hand getPlayerHand() {
@@ -189,58 +213,5 @@ public class Game {
 	public Double getMoney() {
 		return money;
 	}
-
-	// public void findWinner() {
-	//
-	// if (house.getHand().getHandTotal() > 21) {
-	//
-	// System.out.println("House Busted (went over 21)");
-	//
-	// playerWins = true;
-	// gameOver = true;
-	//
-	// addWinToWallet(money);
-	// }
-	// if (player.getHand().getHandTotal() > 21) {
-	//
-	// System.out.println("Player Busted (went over 21)");
-	//
-	// houseWins = true;
-	// gameOver = true;
-	// }
-	// if (player.getHand().getHandTotal() == 21 && player.getHand().getHandSize()
-	// == 2) {
-	//
-	// System.out.println("Player Blackjack");
-	//
-	// playerWins = true;
-	// playerBlackjack = true;
-	// gameOver = true;
-	//
-	// addBlackjackToWallet(money);
-	// }
-	// if (house.getHand().getHandTotal() == 21 && house.getHand().getHandSize() ==
-	// 2) {
-	//
-	// System.out.println("House Blackjack");
-	//
-	// houseWins = true;
-	// houseBlackjack = true;
-	// gameOver = true;
-	// }
-	// if ((house.getHand().getHandTotal() == 21) &&
-	// (player.getHand().getHandTotal() == 21)
-	// && (house.getHand().getHandSize() == 2) && (player.getHand().getHandSize() ==
-	// 2)) {
-	//
-	// System.out.println("PUSH Blackjack");
-	//
-	// gamePush = true;
-	// playerBlackjack = true;
-	// houseBlackjack = true;
-	// gameOver = true;
-	//
-	// }
-	// }
 
 }

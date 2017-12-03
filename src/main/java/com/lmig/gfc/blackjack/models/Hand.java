@@ -7,18 +7,12 @@ public class Hand {
 	private Stack<Card> hand;
 
 	private int handTotal;
-	private int handSize;
 	private boolean isBlackjack;
 	private boolean isBust;
-	private boolean canHit;
 	private int aces;
 
 	public Hand() {
 		hand = new Stack<Card>();
-	}
-
-	public boolean canHit() {
-		return (handTotal < 21);
 	}
 
 	public void addCardToHand(Card card) {
