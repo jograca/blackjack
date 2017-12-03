@@ -73,10 +73,10 @@ public class BlackjackController {
 	// Hit
 	// Tells blackjack it wants a card
 	@PostMapping("/stay")
-	public ModelAndView playerStays() {
+	public ModelAndView playerStays(Double money) {
 
+		game.payout(money);
 		game.stay();
-		game.payout();
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");

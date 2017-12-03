@@ -7,6 +7,7 @@ public class Game {
 	private House house;
 	private Wallet wallet;
 	private Double money;
+	private Double bet;
 
 	private boolean playerWins = false;
 	private boolean houseWins = false;
@@ -68,9 +69,6 @@ public class Game {
 		if (!playerWins) {
 
 			if ((house.getHand().getHandTotal()) > (player.getHand().getHandTotal())) {
-
-				System.out.println("IsGameOverForHand");
-
 				houseWins = true;
 				gameOver = true;
 			}
@@ -79,10 +77,8 @@ public class Game {
 
 	// Method to determine if the Dealer Hand went over 21
 	public void dealerBust() {
-		System.out.println("Dealer Bust");
 
 		if (house.getHand().getHandTotal() > 21) {
-
 			playerWins = true;
 			gameOver = true;
 		}
@@ -92,8 +88,6 @@ public class Game {
 	public void playerBust() {
 
 		if (player.getHand().getHandTotal() > 21) {
-			System.out.println("Player Busted (went over 21)");
-
 			houseWins = true;
 			gameOver = true;
 		}
@@ -103,9 +97,7 @@ public class Game {
 	// 1) Has 2 cards
 	// 2) Hand total is exactly 21
 	public void dealerBlackjack() {
-		System.out.println("Dealer Blackjack");
 		if (house.getHand().getHandTotal() == 21 && house.getHand().getHandSize() == 2) {
-
 			houseWins = true;
 			houseBlackjack = true;
 			gameOver = true;
@@ -124,15 +116,6 @@ public class Game {
 			gameOver = true;
 		}
 
-	}
-
-	// Method to Pay on a Win
-	public void payout() {
-		System.out.println("Money Is: " + money);
-
-		if (playerWins = true) {
-			addWinToWallet(money);
-		}
 	}
 
 	// Method to Hit - adds a card to the Player Hand
@@ -157,13 +140,21 @@ public class Game {
 		isGameOverForHand();
 	}
 
-	public void makePlayerBet(Double bet) {
-		wallet.reduceMoneyBy(bet);
+	public void payout(Double bet) {
+
+		if (playerWins = true) {
+			if (playerBlackjack = true) {
+				wallet.blackjackMoneyWin(getBet());
+			} else {
+				wallet.increaseMoneyBy(getBet());
+			}
+		}
 
 	}
 
-	public void addWinToWallet(Double bet) {
-		wallet.increaseMoneyBy(bet);
+	public void makePlayerBet(Double money) {
+		setBet(money);
+		wallet.reduceMoneyBy(money);
 	}
 
 	public void addBlackjackToWallet(Double money) {
@@ -212,6 +203,14 @@ public class Game {
 
 	public Double getMoney() {
 		return money;
+	}
+
+	public Double getBet() {
+		return bet;
+	}
+
+	public void setBet(Double bet) {
+		this.bet = bet;
 	}
 
 }
