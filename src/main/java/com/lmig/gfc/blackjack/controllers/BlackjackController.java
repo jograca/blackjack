@@ -22,11 +22,19 @@ public class BlackjackController {
 		this.hand = new Hand();
 	}
 
+	public ModelAndView redirectToPlay() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/play");
+
+		return mv;
+	}
+
 	@GetMapping("/")
 	public ModelAndView showBetScreen() {
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bet");
+
 		return mv;
 	}
 
@@ -36,19 +44,16 @@ public class BlackjackController {
 		game.makePlayerBet(bet);
 		game.deal();
 
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/play");
-		return mv;
+		return redirectToPlay();
 	}
 
 	@GetMapping("/play")
 	public ModelAndView showPlayScreen() {
+
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("play");
 
 		hand.getHand();
-
-		// mv.addObject("playerHand", game.getPlayerHand());
 
 		mv.addObject("deck", deck);
 		mv.addObject("hand", hand);
@@ -64,10 +69,7 @@ public class BlackjackController {
 
 		game.hit();
 
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/play");
-
-		return mv;
+		return redirectToPlay();
 	}
 
 	// Hit
@@ -75,13 +77,10 @@ public class BlackjackController {
 	@PostMapping("/stay")
 	public ModelAndView playerStays(Double money) {
 
-		game.payout(money);
 		game.stay();
+		game.payout(money);
 
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/play");
-
-		return mv;
+		return redirectToPlay();
 	}
 
 	@PostMapping("/newgame")
@@ -92,4 +91,5 @@ public class BlackjackController {
 
 		return mv;
 	}
+
 }

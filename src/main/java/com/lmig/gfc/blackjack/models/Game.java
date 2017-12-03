@@ -9,6 +9,8 @@ public class Game {
 	private Double money;
 	private Double bet;
 
+	private String firstCard;
+
 	// Game Flags
 	// A reset method sets these back to false
 	private boolean playerWins = false;
@@ -17,6 +19,7 @@ public class Game {
 	private boolean playerBlackjack = false;
 	private boolean houseBlackjack = false;
 	private boolean gameOver = false;
+	private boolean outOfMoney = false;
 
 	// Constructor for the game - sets up a deck, player, house and wallet
 	public Game() {
@@ -35,6 +38,7 @@ public class Game {
 		playerBlackjack = false;
 		houseBlackjack = false;
 		gameOver = false;
+		outOfMoney = false;
 	}
 
 	// Method to deal:
@@ -67,17 +71,28 @@ public class Game {
 		System.out.println("House Hand: " + house.getHand().getHandTotal());
 		System.out.println("Player Hand: " + player.getHand().getHandTotal());
 		System.out.println(" ");
-		System.out.println("Player Wins:" + playerWins);
-		System.out.println("Dealer Wins:" + houseWins);
-		System.out.println("Game Push: " + gamePush);
-		System.out.println("Player Blackjack: " + playerBlackjack);
-		System.out.println("House Blackjack: " + houseBlackjack);
-		System.out.println("Game Over: " + gameOver);
 
-		if ((house.getHand().getHandTotal()) > (player.getHand().getHandTotal())) {
-			houseWins = true;
+		if (!playerWins) {
+
+			if ((house.getHand().getHandTotal()) > (player.getHand().getHandTotal())) {
+				houseWins = true;
+			}
+			if ((player.getHand().getHandTotal()) > (house.getHand().getHandTotal())) {
+				playerWins = true;
+			}
+			if ((player.getHand().getHandTotal()) == (house.getHand().getHandTotal())) {
+				gamePush = true;
+			}
+			gameOver = true;
+
+			System.out.println("Player Wins:" + playerWins);
+			System.out.println("Dealer Wins:" + houseWins);
+			System.out.println("Game Push: " + gamePush);
+			System.out.println("Player Blackjack: " + playerBlackjack);
+			System.out.println("House Blackjack: " + houseBlackjack);
+			System.out.println("Game Over: " + gameOver);
+
 		}
-		gameOver = true;
 	}
 
 	// Method to determine if the Dealer Hand went over 21
@@ -198,6 +213,10 @@ public class Game {
 
 	}
 
+	public String showFirstCard() {
+		return firstCard;
+	}
+
 	// Method to Hit - adds a card to the Player Hand
 	// As long as Hand total is under
 	// Over 21 runs the method for a Player busting
@@ -234,12 +253,15 @@ public class Game {
 	// If the right conditions are met, updates the Wallet with winnings
 	public void payout(Double bet) {
 
-		if (playerWins = true) {
-			if (playerBlackjack = true) {
-				wallet.blackjackMoneyWin(getBet());
-			} else {
-				wallet.increaseMoneyBy(getBet());
-			}
+		if ((playerWins = true) && (playerBlackjack = true) && (gameOver = true)) {
+			System.out.println("blackjack win");
+			wallet.blackjackMoneyWin(getBet());
+		}
+		if ((playerWins = true) && (playerBlackjack = false) && (gameOver = true)) {
+			System.out.println("regular win");
+			wallet.increaseMoneyBy(bet);
+		} else if (!playerWins) {
+			wallet.reduceMoneyBy(bet);
 		}
 
 	}
@@ -249,6 +271,7 @@ public class Game {
 	// Sets the money variable to the bet
 	// Deducts the bet from the overall Wallet
 	public void makePlayerBet(Double money) {
+
 		setBet(money);
 		wallet.reduceMoneyBy(money);
 	}
