@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="/css/app.css">
+<head>
+<meta charset="UTF-8">
+<title>Blackjack</title>
+</head>
+<body>
+
+	<h1>Play Blackjack!</h1>
+	
+	<div>
+		Your Balance is: {{ game.wallet.getMoney }}
+	</div>
+
+	<h2>Dealer Hand</h2>
+
+	{{#game.getHouseHand.hand}}
+	<ul>
+		<li>{{ face }} of {{ suit }}</li>
+	</ul>
+	<div></div>
+	{{/game.getHouseHand.hand}}
+
+	<div>Dealer Total is: {{ game.getHouseTotal }}</div>
+
+	<br>
+
+	<h2>Player Hand</h2>
+
+	<div>You bet:</div>
+
+	{{#game.getPlayerHand.hand}}
+	<ul>
+		<li>{{ face }} of {{ suit }}</li>
+	</ul>
+	{{/game.getPlayerHand.hand}}
+
+	<div>Player Total is: {{ game.getPlayerTotal }}</div>
+
+	<br>
+	
+	{{^game.isGameOver}} 
+		<table>
+			<tr>
+				<td>
+					<form method="post" action="/hit">
+						<button id="button">HIT</button>
+					</form>
+				</td>
+				<td>
+					<form method="post" action="/stay">
+						<button id="button">STAY</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	{{/game.isGameOver}} 
+
+	<br>
+	<br>
+
+	{{#game.isGameOver}} 
+		<div id = "message">Game Over</div>
+	{{/game.isGameOver}}
+	
+	{{#game.playerWins}}
+			<div id="message">Player Won!</div>
+		{{#game.playerBlackjack}}
+			<div id="message">Blackjack!</div>
+		{{/game.playerBlackjack}}
+	{{/game.playerWins}}
+	
+	{{#game.houseWins}}
+			<div id="message">House Won!</div>
+		{{#game.houseBlackjack}}
+			<div id="message">Blackjack!</div>
+		{{/game.houseBlackjack}}
+	{{/game.houseWins}}
+
+	<br>
+	<br>
+	
+	{{#game.isGameOver}} 
+	<form method="post" action="/newgame">
+		<button id="button">PLAY AGAIN</button>
+	</form>
+	{{/game.isGameOver}}
+
+</body>
+</html>

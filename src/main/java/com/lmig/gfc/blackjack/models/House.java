@@ -1,10 +1,10 @@
 package com.lmig.gfc.blackjack.models;
 
-public class Player {
+public class House {
 
 	private Hand hand;
 
-	public Player() {
+	public House() {
 		hand = new Hand();
 	}
 

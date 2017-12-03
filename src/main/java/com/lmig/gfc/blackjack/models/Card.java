@@ -1,21 +1,19 @@
 package com.lmig.gfc.blackjack.models;
 
-public class Card {
+public abstract class Card {
 
-	private String suit;
-	private int value;
-	
-	public Card (String suit, int value) {
+	private Suits suit;
+
+	public Card(Suits suit) {
 		this.suit = suit;
-		this.value = value;
 	}
-	
-	public String getSuit() {
+
+	public Suits getSuit() {
 		return suit;
 	}
 
-	public int getValue() {
-		return value;
-	}
+	public abstract String getFace();
+
+	public abstract int getValue();
 
 }
