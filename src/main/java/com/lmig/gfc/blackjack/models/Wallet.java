@@ -24,6 +24,10 @@ public class Wallet {
 		money = (money + (playerBet * 1.5));
 	}
 
+	public void calculateWinning() {
+
+	}
+
 	public double getMoney() {
 		return money;
 	}

@@ -12,6 +12,12 @@
 	<div>
 		Your Balance is: {{ game.wallet.getMoney }}
 	</div>
+	<div>
+		You Bet: {{ game.getBet }}
+	</div>
+	<div>
+		You Won: {{ game.wallet.getMoney }}
+	</div>
 
 	<h2>Dealer Hand</h2>
 
@@ -27,8 +33,6 @@
 	<br>
 
 	<h2>Player Hand</h2>
-
-	<div>You bet:</div>
 
 	{{#game.getPlayerHand.hand}}
 	<ul>
@@ -56,27 +60,6 @@
 			</tr>
 		</table>
 	{{/game.isGameOver}} 
-
-	<br>
-	<br>
-
-	{{#game.isGameOver}} 
-		<div id = "message">Game Over</div>
-	{{/game.isGameOver}}
-	
-	{{#game.playerWins}}
-			<div id="message">Player Won!</div>
-		{{#game.playerBlackjack}}
-			<div id="message">Blackjack!</div>
-		{{/game.playerBlackjack}}
-	{{/game.playerWins}}
-	
-	{{#game.houseWins}}
-			<div id="message">House Won!</div>
-		{{#game.houseBlackjack}}
-			<div id="message">Blackjack!</div>
-		{{/game.houseBlackjack}}
-	{{/game.houseWins}}
 
 	<br>
 	<br>
