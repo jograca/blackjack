@@ -9,14 +9,14 @@
 
 	<h1>Play Blackjack!</h1>
 	
+	{{#game.getBet}}
+		<div>
+			You Bet: ${{ game.getBet }}
+		</div>
+	{{/game.getBet}}
+	
 	<div>
-		Your Balance is: {{ game.wallet.getMoney }}
-	</div>
-	<div>
-		You Bet: {{ game.getBet }}
-	</div>
-	<div>
-		You Won: {{ game.wallet.getMoney }}
+		Your Wallet has: ${{ game.wallet.getMoney }}
 	</div>
 
 	<h2>Dealer Hand</h2>
@@ -43,6 +43,19 @@
 	<div>Player Total is: {{ game.getPlayerTotal }}</div>
 
 	<br>
+	<br>
+	
+	{{#game.isPlayerWins}}
+		<div id = "message">
+			You Won!
+		</div>
+	{{/game.isPlayerWins}}
+	
+	{{#game.isHouseWins}}
+		<div id = "message">
+			You Lost :(
+		</div>
+	{{/game.isHouseWins}}
 	
 	{{^game.isGameOver}} 
 		<table>
