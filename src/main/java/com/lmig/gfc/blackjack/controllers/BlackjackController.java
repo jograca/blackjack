@@ -83,7 +83,7 @@ public class BlackjackController {
 	public ModelAndView playerStays(Double money) {
 
 		game.stay();
-		game.payout(money);
+		// game.payout(money);
 
 		return redirectToPlay();
 	}
