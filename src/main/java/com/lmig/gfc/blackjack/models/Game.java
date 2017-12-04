@@ -45,19 +45,19 @@ public class Game {
 	// 1) Sets new hands by running the makeNewHand method
 	// 2) Runs reset flags method, which set all flags to false
 	// 3) Adds cards to the player and dealer hands
-	// 4) Determines if the game is an immediate win for either side
+	// 4) Determines if the game is an immediate win for the Player
 	public void deal() {
 
 		player.makeNewHand();
 		house.makeNewHand();
 		resetFlags();
 
+		deck.shuffle();
 		player.addToHand(deck.pullCardFromDeck());
 		player.addToHand(deck.pullCardFromDeck());
 		house.addToHand(deck.pullCardFromDeck());
 		house.addToHand(deck.pullCardFromDeck());
 
-		dealerBlackjack();
 		playerBlackjack();
 
 	}
@@ -66,20 +66,20 @@ public class Game {
 	// sets appropriate flags
 	public void isGameOverForHand() {
 
-		if (gameOver = false) {
+		houseWins = false;
+		playerWins = false;
 
-			if ((house.getHand().getHandTotal()) > (player.getHand().getHandTotal())) {
-				houseWins = true;
-			}
-			if ((player.getHand().getHandTotal()) > (house.getHand().getHandTotal())) {
-				playerWins = true;
-			}
-			if ((player.getHand().getHandTotal()) == (house.getHand().getHandTotal())) {
-				gamePush = true;
-			}
-			gameOver = true;
-
+		if (house.getHand().getHandTotal() < 21
+				&& ((house.getHand().getHandTotal()) > (player.getHand().getHandTotal()))) {
+			houseWins = true;
+			playerWins = false;
+		} else if ((player.getHand().getHandTotal()) > (house.getHand().getHandTotal())) {
+			playerWins = true;
+			houseWins = false;
+		} else if ((player.getHand().getHandTotal()) == (house.getHand().getHandTotal())) {
+			gamePush = true;
 		}
+		gameOver = true;
 	}
 
 	// Method to determine if the Dealer Hand went over 21
@@ -131,6 +131,7 @@ public class Game {
 			playerWins = true;
 			playerBlackjack = true;
 			gameOver = true;
+			gameOn = true;
 		}
 
 	}
@@ -161,9 +162,10 @@ public class Game {
 	}
 
 	// Method to Stay:
-	// 1) Adds cards to Dealer hand until 17 or less is met
-	// 2) Determines if the Dealer lost (dealerBust method)
-	// 3) Determines the Winner
+	// 1) Determine if the Dealer hit a blackjack
+	// 2) Adds cards to Dealer hand until 17 or less is met
+	// 3) Determines if the Dealer lost (dealerBust method)
+	// 4) Determines the Winner
 	public void stay() {
 
 		gameOn = true;
@@ -172,8 +174,11 @@ public class Game {
 		playerBlackjack = false;
 		houseBlackjack = false;
 
+		dealerBlackjack();
+
 		while (house.getHand().getHandTotal() < 17) {
 			house.addToHand(deck.pullCardFromDeck());
+
 			if (house.getHand().getHandTotal() > 21) {
 				dealerBust();
 			}
@@ -190,11 +195,10 @@ public class Game {
 			wallet.blackjackMoneyWin(getBet());
 		}
 		if ((playerWins = true) && (playerBlackjack = false) && (gameOver = true)) {
-			wallet.increaseMoneyBy(bet);
+			wallet.increaseMoneyBy(getBet());
 		} else if (!playerWins) {
-			wallet.reduceMoneyBy(bet);
+			wallet.reduceMoneyBy(getBet());
 		}
-
 	}
 
 	// Method to make a Player Bet
@@ -204,6 +208,14 @@ public class Game {
 	public void makePlayerBet(Double money) {
 		setBet(money);
 		wallet.reduceMoneyBy(money);
+	}
+
+	// Create a new wallet if it goes below zero
+	public void resetWallet() {
+		if (wallet.getMoney() <= 0) {
+			wallet = new Wallet();
+		}
+
 	}
 
 	public void addBlackjackToWallet(Double money) {

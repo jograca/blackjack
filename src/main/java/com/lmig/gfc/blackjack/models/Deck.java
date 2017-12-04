@@ -74,7 +74,6 @@ public class Deck {
 	}
 
 	public Card pullCardFromDeck() {
-		shuffle();
 		return cards.pop();
 	}
 
