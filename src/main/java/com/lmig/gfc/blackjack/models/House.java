@@ -17,7 +17,6 @@ public class House {
 	}
 
 	public Card getHandPositionOne() {
-		System.out.println(hand.getHand().peek());
 		return hand.getHand().get(0);
 	}
 

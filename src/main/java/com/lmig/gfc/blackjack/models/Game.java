@@ -53,6 +53,7 @@ public class Game {
 		resetFlags();
 
 		deck.shuffle();
+
 		player.addToHand(deck.pullCardFromDeck());
 		player.addToHand(deck.pullCardFromDeck());
 		house.addToHand(deck.pullCardFromDeck());
