@@ -16,6 +16,11 @@ public class House {
 		return hand;
 	}
 
+	public Card getHandPositionOne() {
+		System.out.println(hand.getHand().peek());
+		return hand.getHand().get(0);
+	}
+
 	public boolean isBusted() {
 		return hand.isBust();
 	}
