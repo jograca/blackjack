@@ -66,20 +66,16 @@ public class Game {
 	// sets appropriate flags
 	public void isGameOverForHand() {
 
-		houseWins = false;
-		playerWins = false;
-
-		if (house.getHand().getHandTotal() < 21
-				&& ((house.getHand().getHandTotal()) > (player.getHand().getHandTotal()))) {
+		if (house.getHand().getHandTotal() > player.getHand().getHandTotal()) {
 			houseWins = true;
-			playerWins = false;
-		} else if ((player.getHand().getHandTotal()) > (house.getHand().getHandTotal())) {
+			gameOver = true;
+		} else if (player.getHand().getHandTotal() > house.getHand().getHandTotal()) {
 			playerWins = true;
-			houseWins = false;
-		} else if ((player.getHand().getHandTotal()) == (house.getHand().getHandTotal())) {
+			gameOver = true;
+		} else if (player.getHand().getHandTotal() == house.getHand().getHandTotal()) {
 			gamePush = true;
+			gameOver = true;
 		}
-		gameOver = true;
 	}
 
 	// Method to determine if the Dealer Hand went over 21
@@ -169,11 +165,6 @@ public class Game {
 	public void stay() {
 
 		gameOn = true;
-		playerWins = false;
-		houseWins = false;
-		playerBlackjack = false;
-		houseBlackjack = false;
-
 		dealerBlackjack();
 
 		while (house.getHand().getHandTotal() < 17) {
@@ -191,11 +182,14 @@ public class Game {
 	// If the right conditions are met, updates the Wallet with winnings
 	public void payout(Double bet) {
 
+		if ((playerWins = true) && (playerBlackjack = false) && (gameOver = true)) {
+			wallet.increaseMoneyBy(getBet());
+		}
 		if ((playerWins = true) && (playerBlackjack = true) && (gameOver = true)) {
 			wallet.blackjackMoneyWin(getBet());
 		}
-		if ((playerWins = true) && (playerBlackjack = false) && (gameOver = true)) {
-			wallet.increaseMoneyBy(getBet());
+		if ((playerWins = true) && (gamePush = true)) {
+			wallet.pushMoney(getBet());
 		} else if (!playerWins) {
 			wallet.reduceMoneyBy(getBet());
 		}
