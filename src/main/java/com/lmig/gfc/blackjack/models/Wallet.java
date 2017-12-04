@@ -17,11 +17,15 @@ public class Wallet {
 	}
 
 	public void increaseMoneyBy(Double playerBet) {
-		money += playerBet;
+		money += (playerBet * 2);
 	}
 
 	public void blackjackMoneyWin(Double playerBet) {
-		money = (money + (playerBet * 2));
+		money += (playerBet * 2.5);
+	}
+
+	public void pushMoney(Double playerBet) {
+		money += playerBet;
 	}
 
 	public double getMoney() {

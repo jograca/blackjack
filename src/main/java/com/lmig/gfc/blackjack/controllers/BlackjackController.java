@@ -44,6 +44,7 @@ public class BlackjackController {
 	@PostMapping("/bet")
 	public ModelAndView handleBet(Double bet) {
 
+		game.resetWallet();
 		game.makePlayerBet(bet);
 		game.deal();
 
