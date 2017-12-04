@@ -53,6 +53,7 @@ public class Game {
 		resetFlags();
 
 		deck.shuffle();
+
 		player.addToHand(deck.pullCardFromDeck());
 		player.addToHand(deck.pullCardFromDeck());
 		house.addToHand(deck.pullCardFromDeck());
@@ -64,18 +65,30 @@ public class Game {
 
 	// Method which determines if the game is over
 	// sets appropriate flags
+	// Push winnings to wallet if appropriate
 	public void isGameOverForHand() {
 
-		if (house.getHand().getHandTotal() > player.getHand().getHandTotal()) {
-			houseWins = true;
-			gameOver = true;
-		} else if (player.getHand().getHandTotal() > house.getHand().getHandTotal()) {
-			playerWins = true;
-			gameOver = true;
-		} else if (player.getHand().getHandTotal() == house.getHand().getHandTotal()) {
-			gamePush = true;
-			gameOver = true;
+		if (!houseWins) {
+			if (house.getHand().getHandTotal() > player.getHand().getHandTotal()) {
+				gameOver = true;
+				houseWins = true;
+			}
+			if (player.getHand().getHandTotal() > house.getHand().getHandTotal()) {
+				gameOver = true;
+				playerWins = true;
+				wallet.increaseMoneyBy(getBet());
+			}
+			if (player.getHand().getHandTotal() == house.getHand().getHandTotal()) {
+				gameOver = true;
+				gamePush = true;
+				wallet.pushMoney(getBet());
+			}
+			if (playerBlackjack == true && houseBlackjack == true) {
+				gameOver = true;
+				wallet.pushMoney(getBet());
+			}
 		}
+
 	}
 
 	// Method to determine if the Dealer Hand went over 21
@@ -165,7 +178,6 @@ public class Game {
 	public void stay() {
 
 		gameOn = true;
-		dealerBlackjack();
 
 		while (house.getHand().getHandTotal() < 17) {
 			house.addToHand(deck.pullCardFromDeck());
@@ -174,24 +186,15 @@ public class Game {
 				dealerBust();
 			}
 		}
+
+		dealerBust();
 		isGameOverForHand();
+		checkMoney();
 	}
 
-	// Method to Payout
-	// Accepts a bet Double
-	// If the right conditions are met, updates the Wallet with winnings
-	public void payout(Double bet) {
-
-		if ((playerWins = true) && (playerBlackjack = false) && (gameOver = true)) {
-			wallet.increaseMoneyBy(getBet());
-		}
-		if ((playerWins = true) && (playerBlackjack = true) && (gameOver = true)) {
-			wallet.blackjackMoneyWin(getBet());
-		}
-		if ((playerWins = true) && (gamePush = true)) {
-			wallet.pushMoney(getBet());
-		} else if (!playerWins) {
-			wallet.reduceMoneyBy(getBet());
+	public void checkMoney() {
+		if (wallet.getMoney() <= 0) {
+			gameOver = true;
 		}
 	}
 
