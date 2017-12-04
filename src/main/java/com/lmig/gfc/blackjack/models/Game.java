@@ -197,25 +197,6 @@ public class Game {
 		}
 	}
 
-	// Method to Payout
-	// Accepts a bet Double
-	// If the right conditions are met, updates the Wallet with winnings
-	public void payout(Double bet) {
-
-		if ((playerWins = true) && (playerBlackjack = false) && (gameOver = true)) {
-			wallet.increaseMoneyBy(getBet());
-
-			System.out.println("Normal Win");
-		} else if ((playerWins = true) && (playerBlackjack = true) && (gameOver = true)) {
-			wallet.blackjackMoneyWin(getBet());
-
-			System.out.println("Blackjack Win");
-
-		} else if ((playerWins = true) && (gamePush = true)) {
-			wallet.pushMoney(getBet());
-		}
-	}
-
 	// Method to make a Player Bet
 	// Accepts a bet Double
 	// Sets the money variable to the bet
