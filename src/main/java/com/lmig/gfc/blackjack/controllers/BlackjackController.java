@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.lmig.gfc.blackjack.models.Deck;
 import com.lmig.gfc.blackjack.models.Game;
 import com.lmig.gfc.blackjack.models.Hand;
+import com.lmig.gfc.blackjack.models.Wallet;
 
 @Controller
 public class BlackjackController {
@@ -15,11 +16,13 @@ public class BlackjackController {
 	private Game game;
 	private Deck deck;
 	private Hand hand;
+	private Wallet wallet;
 
 	public BlackjackController() {
 		this.game = new Game();
 		this.deck = new Deck();
 		this.hand = new Hand();
+		this.wallet = new Wallet();
 	}
 
 	public ModelAndView redirectToPlay() {
@@ -58,6 +61,7 @@ public class BlackjackController {
 		mv.addObject("deck", deck);
 		mv.addObject("hand", hand);
 		mv.addObject("game", game);
+		mv.addObject("wallet", wallet);
 
 		return mv;
 	}

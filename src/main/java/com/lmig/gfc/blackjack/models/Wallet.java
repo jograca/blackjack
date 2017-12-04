@@ -21,11 +21,7 @@ public class Wallet {
 	}
 
 	public void blackjackMoneyWin(Double playerBet) {
-		money = (money + (playerBet * 1.5));
-	}
-
-	public boolean hasMoney() {
-		return (money > 0);
+		money = (money + (playerBet * 2));
 	}
 
 	public double getMoney() {

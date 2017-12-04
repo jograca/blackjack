@@ -9,8 +9,6 @@ public class Game {
 	private Double money;
 	private Double bet;
 
-	private String firstCard;
-
 	// Game Flags
 	// A reset method sets these back to false
 	private boolean playerWins = false;
@@ -19,7 +17,7 @@ public class Game {
 	private boolean playerBlackjack = false;
 	private boolean houseBlackjack = false;
 	private boolean gameOver = false;
-	private boolean outOfMoney = false;
+	private boolean notEnoughFunds = false;
 
 	// Constructor for the game - sets up a deck, player, house and wallet
 	public Game() {
@@ -38,13 +36,13 @@ public class Game {
 		playerBlackjack = false;
 		houseBlackjack = false;
 		gameOver = false;
-		outOfMoney = false;
+		notEnoughFunds = false;
 	}
 
 	// Method to deal:
 	// 1) Sets new hands by running the makeNewHand method
 	// 2) Runs reset flags method, which set all flags to false
-	// 3) Adds 2 cards to the player and dealer hands
+	// 3) Adds cards to the player and dealer hands
 	// 4) Determines if the game is an immediate win for either side
 	public void deal() {
 
@@ -55,7 +53,7 @@ public class Game {
 		player.addToHand(deck.pullCardFromDeck());
 		player.addToHand(deck.pullCardFromDeck());
 		house.addToHand(deck.pullCardFromDeck());
-		house.addToHand(deck.pullCardFromDeck());
+		// house.addToHand(deck.pullCardFromDeck());
 
 		dealerBlackjack();
 		playerBlackjack();
@@ -66,13 +64,7 @@ public class Game {
 	// sets appropriate flags
 	public void isGameOverForHand() {
 
-		System.out.println(" ");
-		System.out.println("Evaluating Hand");
-		System.out.println("House Hand: " + house.getHand().getHandTotal());
-		System.out.println("Player Hand: " + player.getHand().getHandTotal());
-		System.out.println(" ");
-
-		if (!playerWins) {
+		if (gameOver = false) {
 
 			if ((house.getHand().getHandTotal()) > (player.getHand().getHandTotal())) {
 				houseWins = true;
@@ -84,13 +76,6 @@ public class Game {
 				gamePush = true;
 			}
 			gameOver = true;
-
-			System.out.println("Player Wins:" + playerWins);
-			System.out.println("Dealer Wins:" + houseWins);
-			System.out.println("Game Push: " + gamePush);
-			System.out.println("Player Blackjack: " + playerBlackjack);
-			System.out.println("House Blackjack: " + houseBlackjack);
-			System.out.println("Game Over: " + gameOver);
 
 		}
 	}
@@ -106,17 +91,6 @@ public class Game {
 			houseBlackjack = false;
 		}
 
-		System.out.println(" ");
-		System.out.println(house.getHand().getHandTotal());
-		System.out.println("Dealer Bust Method");
-		System.out.println(" ");
-		System.out.println("Player Wins:" + playerWins);
-		System.out.println("Dealer Wins:" + houseWins);
-		System.out.println("Game Push: " + gamePush);
-		System.out.println("Player Blackjack: " + playerBlackjack);
-		System.out.println("House Blackjack: " + houseBlackjack);
-		System.out.println("Game Over: " + gameOver);
-
 	}
 
 	// Method to determine if the Player Hand went over 21
@@ -129,17 +103,6 @@ public class Game {
 			playerBlackjack = false;
 			houseBlackjack = false;
 		}
-
-		System.out.println(" ");
-		System.out.println(player.getHand().getHandTotal());
-		System.out.println("Player Bust Method");
-		System.out.println(" ");
-		System.out.println("Player Wins:" + playerWins);
-		System.out.println("Dealer Wins:" + houseWins);
-		System.out.println("Game Push: " + gamePush);
-		System.out.println("Player Blackjack: " + playerBlackjack);
-		System.out.println("House Blackjack: " + houseBlackjack);
-		System.out.println("Game Over: " + gameOver);
 	}
 
 	// Method to determine if the dealer hit Blackjack
@@ -153,16 +116,6 @@ public class Game {
 			houseBlackjack = true;
 			gameOver = true;
 		}
-
-		System.out.println(" ");
-		System.out.println("Dealer Blackjack Check");
-		System.out.println(" ");
-		System.out.println("Player Wins:" + playerWins);
-		System.out.println("Dealer Wins:" + houseWins);
-		System.out.println("Game Push: " + gamePush);
-		System.out.println("Player Blackjack: " + playerBlackjack);
-		System.out.println("House Blackjack: " + houseBlackjack);
-		System.out.println("Game Over: " + gameOver);
 	}
 
 	// Method to determine if the player hit Blackjack.
@@ -176,16 +129,6 @@ public class Game {
 			playerBlackjack = true;
 			gameOver = true;
 		}
-
-		System.out.println(" ");
-		System.out.println("Player Blackjack Check");
-		System.out.println(" ");
-		System.out.println("Player Wins:" + playerWins);
-		System.out.println("Dealer Wins:" + houseWins);
-		System.out.println("Game Push: " + gamePush);
-		System.out.println("Player Blackjack: " + playerBlackjack);
-		System.out.println("House Blackjack: " + houseBlackjack);
-		System.out.println("Game Over: " + gameOver);
 
 	}
 
@@ -201,20 +144,6 @@ public class Game {
 			}
 		}
 
-		System.out.println(" ");
-		System.out.println("Push Met");
-		System.out.println(" ");
-		System.out.println("Player Wins:" + playerWins);
-		System.out.println("Dealer Wins:" + houseWins);
-		System.out.println("Game Push: " + gamePush);
-		System.out.println("Player Blackjack: " + playerBlackjack);
-		System.out.println("House Blackjack: " + houseBlackjack);
-		System.out.println("Game Over: " + gameOver);
-
-	}
-
-	public String showFirstCard() {
-		return firstCard;
 	}
 
 	// Method to Hit - adds a card to the Player Hand
@@ -254,11 +183,9 @@ public class Game {
 	public void payout(Double bet) {
 
 		if ((playerWins = true) && (playerBlackjack = true) && (gameOver = true)) {
-			System.out.println("blackjack win");
 			wallet.blackjackMoneyWin(getBet());
 		}
 		if ((playerWins = true) && (playerBlackjack = false) && (gameOver = true)) {
-			System.out.println("regular win");
 			wallet.increaseMoneyBy(bet);
 		} else if (!playerWins) {
 			wallet.reduceMoneyBy(bet);
@@ -271,7 +198,6 @@ public class Game {
 	// Sets the money variable to the bet
 	// Deducts the bet from the overall Wallet
 	public void makePlayerBet(Double money) {
-
 		setBet(money);
 		wallet.reduceMoneyBy(money);
 	}
@@ -283,6 +209,12 @@ public class Game {
 	// Method for Game Over flag
 	public boolean gameOver() {
 		return gameOver();
+	}
+
+	public void verifyFunds(Double money) {
+		if (money <= getMoney()) {
+			notEnoughFunds = true;
+		}
 	}
 
 	// Additional Getters and Setters
@@ -337,6 +269,10 @@ public class Game {
 
 	public void setBet(Double bet) {
 		this.bet = bet;
+	}
+
+	public boolean isNotEnoughFunds() {
+		return notEnoughFunds;
 	}
 
 }

@@ -9,6 +9,10 @@
 
 	<h1>Play Blackjack!</h1>
 	
+	{{#game.isNotEnoughFunds}}
+		Can't make that bet! 
+	{{/game.isNotEnoughFunds}}
+	
 	{{#game.getBet}}
 		<div>
 			You Bet: ${{ game.getBet }}
