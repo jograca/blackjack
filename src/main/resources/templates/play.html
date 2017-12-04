@@ -25,14 +25,27 @@
 
 	<h2>Dealer Hand</h2>
 
-	{{#game.getHouseHand.hand}}
-	<ul>
-		<li>{{ face }} of {{ suit }}</li>
-	</ul>
-	<div></div>
-	{{/game.getHouseHand.hand}}
+	{{^game.isGameOn}}
+	
+		{{#game.getHandPositionOne}}
+		<ul>
+			<li>{{ face }} of {{ suit }} and ???</li> 
+		</ul>
+		{{/game.getHandPositionOne}}
+		
+	{{/game.isGameOn}}
 
-	<div>Dealer Total is: {{ game.getHouseTotal }}</div>
+	{{#game.isGameOn}}
+	
+		{{#game.getHouseHand.hand}}
+		<ul>
+			<li>{{ face }} of {{ suit }}</li>
+		</ul>
+		<div></div>
+		{{/game.getHouseHand.hand}}
+
+		<div>Dealer Total is: {{ game.getHouseTotal }}</div>
+	{{/game.isGameOn}}
 
 	<br>
 

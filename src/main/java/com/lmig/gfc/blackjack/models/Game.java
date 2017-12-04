@@ -17,6 +17,7 @@ public class Game {
 	private boolean playerBlackjack = false;
 	private boolean houseBlackjack = false;
 	private boolean gameOver = false;
+	private boolean gameOn = false;
 	private boolean notEnoughFunds = false;
 
 	// Constructor for the game - sets up a deck, player, house and wallet
@@ -36,6 +37,7 @@ public class Game {
 		playerBlackjack = false;
 		houseBlackjack = false;
 		gameOver = false;
+		gameOn = false;
 		notEnoughFunds = false;
 	}
 
@@ -53,7 +55,7 @@ public class Game {
 		player.addToHand(deck.pullCardFromDeck());
 		player.addToHand(deck.pullCardFromDeck());
 		house.addToHand(deck.pullCardFromDeck());
-		// house.addToHand(deck.pullCardFromDeck());
+		house.addToHand(deck.pullCardFromDeck());
 
 		dealerBlackjack();
 		playerBlackjack();
@@ -100,6 +102,7 @@ public class Game {
 		if (player.getHand().getHandTotal() > 21) {
 			houseWins = true;
 			gameOver = true;
+			gameOn = true;
 			playerBlackjack = false;
 			houseBlackjack = false;
 		}
@@ -163,6 +166,7 @@ public class Game {
 	// 3) Determines the Winner
 	public void stay() {
 
+		gameOn = true;
 		playerWins = false;
 		houseWins = false;
 		playerBlackjack = false;
@@ -227,6 +231,10 @@ public class Game {
 		return house.getHand();
 	}
 
+	public Card getHandPositionOne() {
+		return house.getHandPositionOne();
+	}
+
 	public int getPlayerTotal() {
 		return player.getHand().getHandTotal();
 	}
@@ -273,6 +281,10 @@ public class Game {
 
 	public boolean isNotEnoughFunds() {
 		return notEnoughFunds;
+	}
+
+	public boolean isGameOn() {
+		return gameOn;
 	}
 
 }
