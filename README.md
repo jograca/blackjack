@@ -36,3 +36,4 @@ Unit Tests for models were written for:
 
 1) Testing Payout values
 2) Testing Hand values
+
